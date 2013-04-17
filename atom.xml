@@ -4,7 +4,7 @@
   <title><![CDATA[ChoutiHub]]></title>
   <link href="http://chouti.github.io/atom.xml" rel="self"/>
   <link href="http://chouti.github.io/"/>
-  <updated>2013-04-17T20:36:04+08:00</updated>
+  <updated>2013-04-17T20:50:18+08:00</updated>
   <id>http://chouti.github.io/</id>
   <author>
     <name><![CDATA[Chouti]]></name>
@@ -12,5 +12,18 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[firstpost]]></title>
+    <link href="http://chouti.github.io/blog/2013/04/17/firstpost/"/>
+    <updated>2013-04-17T20:39:00+08:00</updated>
+    <id>http://chouti.github.io/blog/2013/04/17/firstpost</id>
+    <content type="html"><![CDATA[<p>下面让我们来写写我的第一篇 <strong>Blog</strong> 日志。</p>
+
+<p>在这里，我想写一些不同于 <a href="http://www.ialog.com"><strong>i@log</strong></a> 的东西。因为这个 <em>blog</em> 托管在 <a href="http://www.github.com"><em>github</em></a> 所以，咱们还是讲点和代码相关的东西吧。</p>
+
+<p>&#8211;EOF&#8211;</p>
+]]></content>
+  </entry>
   
 </feed>
