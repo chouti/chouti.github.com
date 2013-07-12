@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[ChoutiHub]]></title>
-  <link href="http://chouti.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: 持续化集成 | ChoutiHub]]></title>
+  <link href="http://chouti.github.io/blog/categories/chi-xu-hua-ji-cheng/atom.xml" rel="self"/>
   <link href="http://chouti.github.io/"/>
   <updated>2013-07-12T13:48:58+08:00</updated>
   <id>http://chouti.github.io/</id>
@@ -32,7 +32,7 @@
 </code></pre>
 
 <p>怎么样？简单吧！<br/>
-因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 &#8221;<strong>org.jenkins-ci.plist</strong>&#8220;的文件。文件内容如下：</p>
+因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 "<strong>org.jenkins-ci.plist</strong>"的文件。文件内容如下：</p>
 
 <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
@@ -63,19 +63,6 @@
 
 <p>这样一来，只要当前用户一登录系统，Jenkins 就可以自动启动运行了。至于这份 plist 中的那些参数的意义，或者说你还想再调整一些参数的话，也可以参考这个<a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html">链接</a>。<br/>
 暂时，先写到这里吧。接下来的部分，会讲讲怎么调试 Jenkins 用来编译 Xcode 的项目。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[firstpost]]></title>
-    <link href="http://chouti.github.io/blog/2013/04/17/firstpost/"/>
-    <updated>2013-04-17T20:39:00+08:00</updated>
-    <id>http://chouti.github.io/blog/2013/04/17/firstpost</id>
-    <content type="html"><![CDATA[<p>下面让我们来写写我的第一篇 <strong>Blog</strong> 日志。</p>
-
-<p>在这里，我想写一些不同于 <a href="http://www.ialog.com"><strong>i@log</strong></a> 的东西。因为这个 <em>blog</em> 托管在 <a href="http://www.github.com"><em>github</em></a> 所以，咱们还是讲点和代码相关的东西吧。</p>
-
-<p>&#8211;EOF&#8211;</p>
 ]]></content>
   </entry>
   
