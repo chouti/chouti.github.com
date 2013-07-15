@@ -4,7 +4,7 @@
   <title><![CDATA[ChoutiHub]]></title>
   <link href="http://chouti.github.io/atom.xml" rel="self"/>
   <link href="http://chouti.github.io/"/>
-  <updated>2013-07-12T13:48:58+08:00</updated>
+  <updated>2013-07-15T15:16:39+08:00</updated>
   <id>http://chouti.github.io/</id>
   <author>
     <name><![CDATA[Chouti]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setup Jenkins for Xcode project]]></title>
+    <link href="http://chouti.github.io/blog/2013/07/12/setup-jenkins-for-xcode-project/"/>
+    <updated>2013-07-12T16:20:00+08:00</updated>
+    <id>http://chouti.github.io/blog/2013/07/12/setup-jenkins-for-xcode-project</id>
+    <content type="html"><![CDATA[<p>目录：</p>
+
+<ul>
+<li><a href="http://chouti.github.io/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/">How to Setup a CI Server Usining Jenkins</a></li>
+</ul>
+
+
+<p>之前一篇讲了怎么在一台 Mac mini 上搭建一个 Jenkins 的服务器。在搭建服务器的时候，我们就预计好了应该使用 Jenkins 来编译 iOS 的应用。<br/>
+首先打开已经配置完成的 Jenkins 主页，按照默认的配置的话应该是 <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> 如下图：<br/>
+<img src="https://raw.github.com/chouti/octopress_img/master/jenkins_dashboard.png"><br/>
+Jenkins本身提供了很多的插件来支持各种各样的应用，从我们的目的出发需要在后台的 <a href="http://127.0.0.1:8080/pluginManager/?">Plugin Manager</a> 添加一下这些插件：</p>
+
+<ul>
+<li>Xcode integration</li>
+<li>Git Plugin</li>
+<li>cucumber-reports</li>
+<li>Jenkins Mailer Plugin</li>
+</ul>
+
+
+<p>暂时先安装这四个吧，反正在 Jenkins 中添加插件很容易，要用到什么的时候再来这个界面下添加就好了。</p>
+
+<p>有几个常用的 Jenkins 的 url 命令或许你有兴趣知道：</p>
+
+<ul>
+<li>重启 <a href="http://127.0.0.1:8080/restart">http://127.0.0.1:8080/restart</a></li>
+<li>退出（关闭）<a href="http://127.0.0.1:8080/shutdown">http://127.0.0.1:8080/shutdown</a></li>
+<li>重载配置 <a href="http://127.0.0.1:8080/reload">http://127.0.0.1:8080/reload</a></li>
+</ul>
+
+
+<p>如果不通过 URL,想在终端中操作 Jenkins 的话：</p>
+
+<ul>
+<li>Kill 掉 Jenkins 的那个进程 <code>ps -e | grep jenkins</code> 得到 <strong>PID</strong> 之后再 <code>sudo kill PID</code></li>
+<li>启动 Jenkins <code>sudo launchctl load PATH/TO/JenkisPlist</code></li>
+<li>停止 Jenkins <code>sudo launchctl unload PATH/TO/JenkinsPlist</code></li>
+</ul>
+
+
+<p>要想在 Jenkins 中创建一个任务来编译 Xcode 的项目，需要在 Jenkins 中先新建一个任务。选择 <code>Build a free-style software project</code> <br/>
+<img src="https://raw.github.com/chouti/octopress_img/master/create_demoJob.png"><br/>
+然后，在 <strong>Source Code Management</strong> 中选择 Git 类型（我们刚刚已经安装了 Git Plugin 了，记得吗？）<br/>
+<img src="https://raw.github.com/chouti/octopress_img/master/git_setting.png"><br/>
+填写正确的 Repository URL, 在 Branches to build 这里，你可以留空，留空意味着所有的分支都会被编译。当然，我建议可以准备一个 Release 分支，每次发布前都将代码合并到此分支，然后进行编译。当然，还有一些高级设置，在这里我们不做逐项解释了，如果有兴趣，可以慢慢再研究一下。<br/>
+在接下来的 <strong>Build</strong> 部分，从下拉框中选中 Xcode 这个选项<br/>
+<img src="https://raw.github.com/chouti/octopress_img/master/Select_xcode.png"><br/>
+展开的设置界面，其实也就是 xcodebuild 命令行工具的参数设置界面。按照你需要的来配置这些参数就好，再这里不一一展开解释了，接下来的几篇日志中，会对用到的参数进行解释。<br/>
+设置完成之后，点击 <strong>Save</strong> 来保存整个配置。<br/>
+现在咱们去点击一下 <strong>Build Now</strong> 按钮来试试看。很有可能，你会遇到一个错误提示，git 没有正确的权限去代码仓库获取最新的代码。这是为什么呢？因为 Jenkins 在默认的设置下登录的用户是匿名用户，几乎肯定与你登录 Git 代码仓库的用户不是同一个。在设置中的 <strong>Configure Global Security</strong> 打勾 <strong>Enable security</strong> 然后选择 <strong>Unix user/group database</strong> 以及 <strong> Logged-in users can do anything</strong> 如此一来 Jenkins 就会使用当前登录系统的用户来登录，只要当前的系统用户有权限去获取 Git 仓库中的代码，就可以了。<br/>
+今天，就先讲到这里吧。接下来的，咱们下篇再开讲。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How to setup a CI server using Jenkins]]></title>
@@ -32,34 +91,60 @@
 </code></pre>
 
 <p>怎么样？简单吧！<br/>
-因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 &#8221;<strong>org.jenkins-ci.plist</strong>&#8220;的文件。文件内容如下：</p>
+因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 &ldquo;<strong>org.jenkins-ci.plist</strong>&rdquo; 的文件。文件内容如下：</p>
 
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
-&lt;plist version="1.0"&gt;
-  &lt;dict&gt;
-    &lt;key&gt;KeepAlive&lt;/key&gt;
-    &lt;true/&gt;
-    &lt;key&gt;Label&lt;/key&gt;
-    &lt;string&gt;org.jenkins-ci&lt;/string&gt;
-    &lt;key&gt;ProgramArguments&lt;/key&gt;
-    &lt;arrary&gt;
-      &lt;string&gt;/usr/bin/java&lt;/string&gt;
-      &lt;string&gt;-server&lt;/string&gt;
-      &lt;string&gt;-d64&lt;/string&gt;
-      &lt;string&gt;-XX:+UseG1GC&lt;/string&gt;
-      &lt;string&gt;-Xms512m&lt;/string&gt;
-      &lt;string&gt;-Xmx512m&lt;/string&gt;
-      &lt;string&gt;-XX:MaxGCPauseMills=500&lt;/string&gt;
-      &lt;string&gt;-jar&lt;/string&gt;
-      &lt;string&gt;/usr/local/opt/jenkins/libexec/jenkins.war&lt;/string&gt;
-    &lt;/arrary&gt;
-    &lt;key&gt;RunAtLoad&lt;/key&gt;
-    &lt;true/&gt;
-  &lt;/dict&gt;
-&lt;/plist&gt;  
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>  <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class='line'>  <span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; </span>
+</span><span class='line'><span class="cp"> &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>org.jenkins-ci<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;arrary&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>/usr/bin/java<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-server<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-d64<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-XX:+UseG1GC<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-Xms512m<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-Xmx512m<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-XX:MaxGCPauseMills=500<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-jar<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>/usr/local/opt/jenkins/libexec/jenkins.war<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/arrary&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/plist&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这样一来，只要当前用户一登录系统，Jenkins 就可以自动启动运行了。至于这份 plist 中的那些参数的意义，或者说你还想再调整一些参数的话，也可以参考这个<a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html">链接</a>。<br/>
 暂时，先写到这里吧。接下来的部分，会讲讲怎么调试 Jenkins 用来编译 Xcode 的项目。</p>
@@ -75,7 +160,7 @@
 
 <p>在这里，我想写一些不同于 <a href="http://www.ialog.com"><strong>i@log</strong></a> 的东西。因为这个 <em>blog</em> 托管在 <a href="http://www.github.com"><em>github</em></a> 所以，咱们还是讲点和代码相关的东西吧。</p>
 
-<p>&#8211;EOF&#8211;</p>
+<p>&mdash;EOF&mdash;</p>
 ]]></content>
   </entry>
   

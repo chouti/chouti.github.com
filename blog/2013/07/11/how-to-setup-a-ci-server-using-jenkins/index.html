@@ -105,34 +105,60 @@
 </code></pre>
 
 <p>怎么样？简单吧！<br/>
-因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 &#8221;<strong>org.jenkins-ci.plist</strong>&#8220;的文件。文件内容如下：</p>
+因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 &ldquo;<strong>org.jenkins-ci.plist</strong>&rdquo; 的文件。文件内容如下：</p>
 
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
-&lt;plist version="1.0"&gt;
-  &lt;dict&gt;
-    &lt;key&gt;KeepAlive&lt;/key&gt;
-    &lt;true/&gt;
-    &lt;key&gt;Label&lt;/key&gt;
-    &lt;string&gt;org.jenkins-ci&lt;/string&gt;
-    &lt;key&gt;ProgramArguments&lt;/key&gt;
-    &lt;arrary&gt;
-      &lt;string&gt;/usr/bin/java&lt;/string&gt;
-      &lt;string&gt;-server&lt;/string&gt;
-      &lt;string&gt;-d64&lt;/string&gt;
-      &lt;string&gt;-XX:+UseG1GC&lt;/string&gt;
-      &lt;string&gt;-Xms512m&lt;/string&gt;
-      &lt;string&gt;-Xmx512m&lt;/string&gt;
-      &lt;string&gt;-XX:MaxGCPauseMills=500&lt;/string&gt;
-      &lt;string&gt;-jar&lt;/string&gt;
-      &lt;string&gt;/usr/local/opt/jenkins/libexec/jenkins.war&lt;/string&gt;
-    &lt;/arrary&gt;
-    &lt;key&gt;RunAtLoad&lt;/key&gt;
-    &lt;true/&gt;
-  &lt;/dict&gt;
-&lt;/plist&gt;  
-</code></pre>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'>  <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span class='line'>  <span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; </span>
+</span><span class='line'><span class="cp"> &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;dict&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;string&gt;</span>org.jenkins-ci<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;arrary&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>/usr/bin/java<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-server<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-d64<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-XX:+UseG1GC<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-Xms512m<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-Xmx512m<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-XX:MaxGCPauseMills=500<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-jar<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>        <span class="nt">&lt;string&gt;</span>/usr/local/opt/jenkins/libexec/jenkins.war<span class="nt">&lt;/string&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/arrary&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;true/&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;/dict&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/plist&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>这样一来，只要当前用户一登录系统，Jenkins 就可以自动启动运行了。至于这份 plist 中的那些参数的意义，或者说你还想再调整一些参数的话，也可以参考这个<a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html">链接</a>。<br/>
 暂时，先写到这里吧。接下来的部分，会讲讲怎么调试 Jenkins 用来编译 Xcode 的项目。</p>
@@ -172,7 +198,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://chouti.github.io/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/" data-via="chouti" data-counturl="http://chouti.github.io/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://chouti.github.io/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/" data-via="chouti" data-counturl="http://chouti.github.io/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -185,6 +211,8 @@
       
         <a class="basic-alignment left" href="/blog/2013/04/17/firstpost/" title="Previous Post: firstpost">&laquo; firstpost</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/07/12/setup-jenkins-for-xcode-project/" title="Next Post: Setup Jenkins for Xcode project">Setup Jenkins for Xcode project &raquo;</a>
       
     </p>
   </footer>
@@ -199,11 +227,15 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/">How to setup a CI server using Jenkins</a>
+        <a href="/blog/2013/07/12/setup-jenkins-for-xcode-project/">Setup Jenkins for Xcode Project</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/04/17/firstpost/">firstpost</a>
+        <a href="/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/">How to Setup a CI Server Using Jenkins</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/04/17/firstpost/">Firstpost</a>
       </li>
     
   </ul>
@@ -246,7 +278,7 @@
       var twitterWidgets = document.createElement('script');
       twitterWidgets.type = 'text/javascript';
       twitterWidgets.async = true;
-      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
       document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
     })();
   </script>
