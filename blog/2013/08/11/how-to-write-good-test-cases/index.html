@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ChoutiHub</title>
+  <title>How To Write Good Test Cases - ChoutiHub</title>
   <meta name="author" content="Chouti">
 
   
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://chouti.github.io">
+  <link rel="canonical" href="http://chouti.github.io/blog/2013/08/11/how-to-write-good-test-cases">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="ChoutiHub" type="application/atom+xml">
@@ -63,15 +63,12 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+<article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/08/11/how-to-write-good-test-cases/">How to Write Good Test Cases</a></h1>
+      <h1 class="entry-title">How to Write Good Test Cases</h1>
     
     
       <p class="meta">
@@ -94,7 +91,7 @@
   </header>
 
 
-  <div class="entry-content"><h1>如何用 Robotframework 来编写优秀的测试用例</h1>
+<div class="entry-content"><h1>如何用 Robotframework 来编写优秀的测试用例</h1>
 
 <h2>介绍</h2>
 
@@ -461,108 +458,16 @@
 </ul>
 
 </div>
-  
-  
 
 
-    </article>
-  
-  
-    <article>
+  <footer>
+    <p class="meta">
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/12/setup-jenkins-for-xcode-project/">Setup Jenkins for Xcode Project</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
   
 
+<span class="byline author vcard">Posted by <span class="fn">Chouti</span></span>
 
-<time datetime="2013-07-12T16:20:00+08:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>目录：</p>
-
-<ul>
-<li><a href="http://chouti.github.io/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/">How to Setup a CI Server Usining Jenkins</a></li>
-</ul>
-
-
-<p>之前一篇讲了怎么在一台 Mac mini 上搭建一个 Jenkins 的服务器。在搭建服务器的时候，我们就预计好了应该使用 Jenkins 来编译 iOS 的应用。<br/>
-首先打开已经配置完成的 Jenkins 主页，按照默认的配置的话应该是 <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a> 如下图：<br/>
-<img src="https://raw.github.com/chouti/octopress_img/master/jenkins_dashboard.png"><br/>
-Jenkins本身提供了很多的插件来支持各种各样的应用，从我们的目的出发需要在后台的 <a href="http://127.0.0.1:8080/pluginManager/?">Plugin Manager</a> 添加一下这些插件：</p>
-
-<ul>
-<li>Xcode integration</li>
-<li>Git Plugin</li>
-<li>cucumber-reports</li>
-<li>Jenkins Mailer Plugin</li>
-</ul>
-
-
-<p>暂时先安装这四个吧，反正在 Jenkins 中添加插件很容易，要用到什么的时候再来这个界面下添加就好了。</p>
-
-<p>有几个常用的 Jenkins 的 url 命令或许你有兴趣知道：</p>
-
-<ul>
-<li>重启 <a href="http://127.0.0.1:8080/restart">http://127.0.0.1:8080/restart</a></li>
-<li>退出（关闭）<a href="http://127.0.0.1:8080/shutdown">http://127.0.0.1:8080/shutdown</a></li>
-<li>重载配置 <a href="http://127.0.0.1:8080/reload">http://127.0.0.1:8080/reload</a></li>
-</ul>
-
-
-<p>如果不通过 URL,想在终端中操作 Jenkins 的话：</p>
-
-<ul>
-<li>Kill 掉 Jenkins 的那个进程 <code>ps -e | grep jenkins</code> 得到 <strong>PID</strong> 之后再 <code>sudo kill PID</code></li>
-<li>启动 Jenkins <code>sudo launchctl load PATH/TO/JenkisPlist</code></li>
-<li>停止 Jenkins <code>sudo launchctl unload PATH/TO/JenkinsPlist</code></li>
-</ul>
-
-
-<p>要想在 Jenkins 中创建一个任务来编译 Xcode 的项目，需要在 Jenkins 中先新建一个任务。选择 <code>Build a free-style software project</code> <br/>
-<img src="https://raw.github.com/chouti/octopress_img/master/create_demoJob.png"><br/>
-然后，在 <strong>Source Code Management</strong> 中选择 Git 类型（我们刚刚已经安装了 Git Plugin 了，记得吗？）<br/>
-<img src="https://raw.github.com/chouti/octopress_img/master/git_setting.png"><br/>
-填写正确的 Repository URL, 在 Branches to build 这里，你可以留空，留空意味着所有的分支都会被编译。当然，我建议可以准备一个 Release 分支，每次发布前都将代码合并到此分支，然后进行编译。当然，还有一些高级设置，在这里我们不做逐项解释了，如果有兴趣，可以慢慢再研究一下。<br/>
-在接下来的 <strong>Build</strong> 部分，从下拉框中选中 Xcode 这个选项<br/>
-<img src="https://raw.github.com/chouti/octopress_img/master/Select_xcode.png"><br/>
-展开的设置界面，其实也就是 xcodebuild 命令行工具的参数设置界面。按照你需要的来配置这些参数就好，再这里不一一展开解释了，接下来的几篇日志中，会对用到的参数进行解释。<br/>
-设置完成之后，点击 <strong>Save</strong> 来保存整个配置。<br/>
-现在咱们去点击一下 <strong>Build Now</strong> 按钮来试试看。很有可能，你会遇到一个错误提示，git 没有正确的权限去代码仓库获取最新的代码。这是为什么呢？因为 Jenkins 在默认的设置下登录的用户是匿名用户，几乎肯定与你登录 Git 代码仓库的用户不是同一个。在设置中的 <strong>Configure Global Security</strong> 打勾 <strong>Enable security</strong> 然后选择 <strong>Unix user/group database</strong> 以及 <strong> Logged-in users can do anything</strong> 如此一来 Jenkins 就会使用当前登录系统的用户来登录，只要当前的系统用户有权限去获取 Git 仓库中的代码，就可以了。<br/>
-今天，就先讲到这里吧。接下来的，咱们下篇再开讲。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/07/11/how-to-setup-a-ci-server-using-jenkins/">How to Setup a CI Server Using Jenkins</a></h1>
-    
-    
-      <p class="meta">
-        
 
 
 
@@ -574,137 +479,40 @@ Jenkins本身提供了很多的插件来支持各种各样的应用，从我们�
   
 
 
-<time datetime="2013-07-11T10:05:00+08:00" pubdate data-updated="true">Jul 11<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>这篇日志主要是想说一下前段时间我在搭建持续化集成环境时的一些心得体会。希望可以给还没有这样做过的测试工程师们有一点帮助。在阅读这篇日志的时候，我假设你是已经了解什么是持续化集成这个概念了。如果你对与这一点还不是很清楚，请猛击右侧的链接 <a href="http://en.wikipedia.org/wiki/Continuous_integration">Wiki:Continuous_intergration</a></p>
-
-<h3>硬件</h3>
-
-<p>因为考虑到持续化集成是整个团队的事情，而非依赖于一位单独的工程师去推动，所以想让这个服务跑在一台独立的硬件设备上。这里用到的是一台 <strong>Mac mini</strong> 搭载了 OS X 10.8 (Mountain Lion)，选择 Mac 而不是其他 PC 的原因是为了可以更多地覆盖到测试标的物，比如 iOS 的应用和 Android 的应用，甚至 Web 应用都可以用这台服务器来完成。</p>
-
-<h3>设置 Jenkins</h3>
-
-<p>安装 <a href="http://jenkins-ci.org">Jenkins</a> 有很多种方法，比如去它的项目页面下载源码自己编译。这里我想用一种比较快捷的方法：通过 <a href="http://mxcl.github.com/homebrew">Homebrew</a> 来安装，登入到服务器之后打开终端，输入：</p>
-
-<pre><code>$ brew install jenkins
-</code></pre>
-
-<p>怎么样？简单吧！<br/>
-因为这是一台独立的服务器，我希望 Jenkins 可以一直运行着，甚至在系统重启之后也可以自动运行起来。如此一来，需要在 “~/Library/LaunchAgents/” 创建一份名为 &ldquo;<strong>org.jenkins-ci.plist</strong>&rdquo; 的文件。文件内容如下：</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-</pre></td><td class='code'><pre><code class='xml'><span class='line'>  <span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-</span><span class='line'>  <span class="cp">&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; </span>
-</span><span class='line'><span class="cp"> &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;plist</span> <span class="na">version=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;dict&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;key&gt;</span>KeepAlive<span class="nt">&lt;/key&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;true/&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;key&gt;</span>Label<span class="nt">&lt;/key&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;string&gt;</span>org.jenkins-ci<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;key&gt;</span>ProgramArguments<span class="nt">&lt;/key&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;arrary&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>/usr/bin/java<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-server<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-d64<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-XX:+UseG1GC<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-Xms512m<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-Xmx512m<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-XX:MaxGCPauseMills=500<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>-jar<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>        <span class="nt">&lt;string&gt;</span>/usr/local/opt/jenkins/libexec/jenkins.war<span class="nt">&lt;/string&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;/arrary&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;key&gt;</span>RunAtLoad<span class="nt">&lt;/key&gt;</span>
-</span><span class='line'>      <span class="nt">&lt;true/&gt;</span>
-</span><span class='line'>    <span class="nt">&lt;/dict&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;/plist&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这样一来，只要当前用户一登录系统，Jenkins 就可以自动启动运行了。至于这份 plist 中的那些参数的意义，或者说你还想再调整一些参数的话，也可以参考这个<a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/java.html">链接</a>。<br/>
-暂时，先写到这里吧。接下来的部分，会讲讲怎么调试 Jenkins 用来编译 Xcode 的项目。</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
+<time datetime="2013-08-11T14:13:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2013</time>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/17/firstpost/">Firstpost</a></h1>
-    
-    
-      <p class="meta">
-        
 
-
-
-
-
-
-
-
+<span class="categories">
   
+    <a class='category' href='/blog/categories/robotframework/'>Robotframework</a>
+  
+</span>
 
 
-<time datetime="2013-04-17T20:39:00+08:00" pubdate data-updated="true">Apr 17<span>th</span>, 2013</time>
-        
-      </p>
+    </p>
     
-  </header>
-
-
-  <div class="entry-content"><p>下面让我们来写写我的第一篇 <strong>Blog</strong> 日志。</p>
-
-<p>在这里，我想写一些不同于 <a href="http://www.ialog.com"><strong>i@log</strong></a> 的东西。因为这个 <em>blog</em> 托管在 <a href="http://www.github.com"><em>github</em></a> 所以，咱们还是讲点和代码相关的东西吧。</p>
-
-<p>&mdash;EOF&mdash;</p>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://chouti.github.io/blog/2013/08/11/how-to-write-good-test-cases/" data-via="chouti" data-counturl="http://chouti.github.io/blog/2013/08/11/how-to-write-good-test-cases/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
 </div>
-  
-  
 
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/07/12/setup-jenkins-for-xcode-project/" title="Previous Post: Setup Jenkins for Xcode project">&laquo; Setup Jenkins for Xcode project</a>
+      
+      
+    </p>
+  </footer>
+</article>
 
-    </article>
-  
-  <div class="pagination">
-    
-    <a href="/blog/archives">Blog Archives</a>
-    
-  </div>
 </div>
+
 <aside class="sidebar">
   
     <section>
@@ -736,6 +544,7 @@ Jenkins本身提供了很多的插件来支持各种各样的应用，从我们�
 
   
 </aside>
+
 
     </div>
   </div>
